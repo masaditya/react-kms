@@ -5,6 +5,7 @@ import { Switch, BrowserRouter, Route, Redirect } from "react-router-dom";
 import Context from "./components/common/Context";
 import { LoginPage } from "./pages/Auth/Login/Login";
 import { RegisterPage } from "./pages/Auth/Register/Register";
+import { Main } from "./pages/Main/Main";
 
 const App = () => {
   const context = React.useContext(Context);
@@ -13,18 +14,14 @@ const App = () => {
     <BrowserRouter>
       <AppWrapper>
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/" component={Main} />
           <Route path="/login" component={LoginPage} />
-          <Route path="/register" component={RegisterPage}/>
+          <Route path="/register" component={RegisterPage} />
           <Redirect to="/" />
         </Switch>
       </AppWrapper>
     </BrowserRouter>
   );
-};
-
-const HomePage = () => {
-  return <div>Home</div>;
 };
 
 export default App;

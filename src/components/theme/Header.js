@@ -1,15 +1,22 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
+import { Button } from "antd";
 
-export default ({  isLoggedIn, logout }) => (
+export default ({ isLoggedIn, logout }) => (
   <header
     style={{
       background: `rebeccapurple`,
       marginBottom: `1.45rem`,
-      padding: '1rem 0',
+      padding: "1rem",
     }}
   >
-    <div className="center-text flex-container container">
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
       <h1 style={{ margin: 0 }}>
         <Link
           to="/"
@@ -22,14 +29,10 @@ export default ({  isLoggedIn, logout }) => (
         </Link>
       </h1>
       {isLoggedIn && (
-        <button
-          type="submit"
-          onClick={logout}
-          className="btn btn-primary gradient-green"
-        >
+        <Button type="default" onClick={logout}>
           Logout
-        </button>
+        </Button>
       )}
     </div>
   </header>
-)
+);

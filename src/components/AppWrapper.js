@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 import setAuthToken from "../helpers/setAuthToken";
 import Layout from "./common/Layout";
@@ -43,9 +42,9 @@ export default ({ children }) => {
     }
   });
 
-  const logout = async () => {
+  const logout = React.useCallback(async () => {
     try {
-      dispatchUserAction({
+      await dispatchUserAction({
         type: "LOGOUT",
       });
       window.localStorage.removeItem("token");
@@ -54,7 +53,7 @@ export default ({ children }) => {
     } catch (err) {
       console.log(err);
     }
-  };
+  });
 
   useEffect(() => {
     if (!user.isLoggedIn) {
