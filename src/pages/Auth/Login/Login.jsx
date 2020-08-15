@@ -8,19 +8,22 @@ import Axios from "axios";
 export const LoginPage = () => {
   const context = React.useContext(Context);
   const history = useHistory();
+
   const onFinish = React.useCallback(async (values) => {
-    console.log("Success:", values);
-    const data = await Axios.post("http://localhost:3001/auth/login", values);
+    const data = await Axios.post(
+      process.env.REACT_APP_SERVER + "/auth/login",
+      values
+    );
     if (data.data.success) {
-      notification.info({ message: "Register Success" });
+      notification.info({ message: "Login Success" });
       await context.dispatchUserAction({
         type: "SAVE_USER",
-        payload: {...data.data},
+        payload: { ...data.data },
       });
       await window.localStorage.setItem("token", data.data.token);
       history.push("/");
     } else {
-      notification.error({ message: "Register Failed" });
+      notification.error({ message: "Login Failed" });
     }
   });
 

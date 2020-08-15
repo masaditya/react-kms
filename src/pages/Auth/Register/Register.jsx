@@ -9,7 +9,7 @@ export const RegisterPage = () => {
   const onFinish = React.useCallback(async (values) => {
     console.log("Success:", values);
     const data = await Axios.post(
-      "http://localhost:3001/auth/register",
+      process.env.REACT_APP_SERVER + "/auth/register",
       values
     );
     if (data.data.success) {
