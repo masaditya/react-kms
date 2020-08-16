@@ -5,7 +5,7 @@ import { Row, Col } from "antd";
 
 export const Main = () => {
   return (
-    <div>
+    <div style={{ padding: "2em" }}>
       <Row>
         <Col span={12}>
           <Timbang></Timbang>

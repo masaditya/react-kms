@@ -2,14 +2,11 @@ import React from "react";
 import "./App.css";
 import AppWrapper from "./components/AppWrapper";
 import { Switch, BrowserRouter, Route, Redirect } from "react-router-dom";
-import Context from "./components/common/Context";
 import { LoginPage } from "./pages/Auth/Login/Login";
 import { RegisterPage } from "./pages/Auth/Register/Register";
 import { Main } from "./pages/Main/Main";
 
 const App = () => {
-  const context = React.useContext(Context);
-  console.log(context);
   return (
     <BrowserRouter>
       <AppWrapper>

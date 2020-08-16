@@ -9,7 +9,6 @@ export default ({ children }) => {
   const { user, dispatchUserAction } = useContext(Context);
   const [loading, setLoading] = useState(true);
   const history = useHistory();
-  console.log(user);
 
   const fetchUser = React.useCallback(async () => {
     try {
