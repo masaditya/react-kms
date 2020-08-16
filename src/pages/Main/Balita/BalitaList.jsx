@@ -1,41 +1,48 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { List } from "antd/lib/form/Form";
-import Avatar from "antd/lib/avatar/avatar";
-import { Typography } from "antd";
+import { Collapse, Typography, Button, notification } from "antd";
+import Axios from "axios";
+import setAuthToken from "../../../helpers/setAuthToken";
+const { Panel } = Collapse;
 
-export const BalitaList = ({ balitaList }) => {
-  console.log(balitaList);
-  const data = [
-    {
-      title: "Ant Design Title 1",
-    },
-    {
-      title: "Ant Design Title 2",
-    },
-    {
-      title: "Ant Design Title 3",
-    },
-    {
-      title: "Ant Design Title 4",
-    },
-  ];
+export const BalitaList = ({ balitaList, onUpdate }) => {
+  const handleDelete = async (values) => {
+    console.log(values);
+    const response = await Axios.delete(
+      process.env.REACT_APP_SERVER + "/balita/" + values.id_bayi,
+      setAuthToken(localStorage.getItem("token"))
+    );
+    console.log(response.data);
+    if (response.data) {
+      notification.info({ message: "Delete New Data Success" });
+      console.log(response.data);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } else {
+      notification.error({ message: "Delete New Data Failed" });
+    }
+  };
+
   return (
     <>
-      {/* {balitaList.map((item, i) => {
-        return <div key={i}>{item.nama_bayi}</div>;
-      })} */}
-      <List
-        header={<div>Header</div>}
-        footer={<div>Footer</div>}
-        bordered
-        dataSource={data}
-        renderItem={(item) => (
-          <List.Item>
-            <Typography.Text mark> {item.title} </Typography.Text>
-          </List.Item>
-        )}
-      />
+      <Collapse ghost>
+        {balitaList &&
+          balitaList.map((balita, i) => {
+            return (
+              <Panel header={balita.nama_bayi} key={i}>
+                <Typography>Umur : {balita.umur}</Typography>
+                <Typography>Jenis Kelamin :{balita.jenis_kelamin}</Typography>
+                <Typography>Alamat : {balita.alamat_bayi}</Typography>
+                <Button onClick={() => handleDelete(balita)} type="dashed">
+                  Delete
+                </Button>
+                <Button onClick={onUpdate} type="primary">
+                  Update
+                </Button>
+              </Panel>
+            );
+          })}
+      </Collapse>
     </>
   );
 };

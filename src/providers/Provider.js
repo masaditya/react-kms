@@ -1,16 +1,16 @@
 import React, { useReducer } from 'react'
 import Context from '../components/common/Context'
-import reducer from './taskReducer'
+import balitaReducer from './balitaReducer'
 import userReducer from './userReducer'
 
 export default ({ children }) => {
-  const [tasks, dispatch] = useReducer(reducer, [])
+  const [balitas, dispatch] = useReducer(balitaReducer, [])
   const [user, dispatchUserAction] = useReducer(userReducer, {})
 
   return (
     <Context.Provider
       value={{
-        tasks,
+        balitas,
         dispatch,
         user,
         dispatchUserAction,

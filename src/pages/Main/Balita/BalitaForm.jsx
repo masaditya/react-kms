@@ -1,16 +1,17 @@
 import React from "react";
-import { Form, Input, Button, Radio } from "antd";
+import { Form, Input, Button, Radio, InputNumber } from "antd";
 
 const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
-export const BalitaForm = () => {
-
-    
+export const BalitaForm = ({ onSubmit }) => {
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
 
   return (
-    <Form {...layout}>
+    <Form {...layout} onFinish={onSubmit} onFinishFailed={onFinishFailed}>
       <Form.Item
         label="Nama Bayi"
         name="nama_bayi"
@@ -30,7 +31,7 @@ export const BalitaForm = () => {
       </Form.Item>
       <Form.Item
         label="Alamat Bayi"
-        name="alamat"
+        name="alamat_bayi"
         rules={[{ required: true, message: "Please input your address!" }]}
       >
         <Input />
@@ -41,7 +42,7 @@ export const BalitaForm = () => {
         name="umur"
         rules={[{ required: true, message: "Please input your age!" }]}
       >
-        <Input />
+        <InputNumber min={1} max={10} />
       </Form.Item>
 
       <Button type="primary" htmlType="submit">
