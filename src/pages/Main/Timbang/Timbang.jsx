@@ -7,9 +7,8 @@ import { TimbangList } from "./TimbangList";
 import Context from "../../../components/common/Context";
 
 export const Timbang = () => {
-  
   const context = React.useContext(Context);
-  const [TimbangList, setTimbangList] = React.useState([]);
+  const [timbangList, setTimbangList] = React.useState([]);
 
   React.useEffect(() => {
     const getAllTimbang = async () => {
@@ -17,22 +16,21 @@ export const Timbang = () => {
         process.env.REACT_APP_SERVER + "/timbang",
         setAuthToken(localStorage.getItem("token"))
       );
-      await context.dispatch({
-        type: "FETCH_TIMBANGS",
+      await context.dispatchTimbang({
+        type: "FETCH_BALITAS",
         payload: response.data,
       });
       setTimbangList(response.data);
     };
     getAllTimbang();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <TimbangForm />
       <Divider />
-      <TimbangList TimbangList={TimbangList} />
+      <TimbangList timbangList={timbangList} />
     </>
   );
-
 };

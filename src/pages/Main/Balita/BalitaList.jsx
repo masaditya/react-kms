@@ -1,11 +1,11 @@
 import React from "react";
-import { Collapse, Typography, Button, notification, Modal } from "antd";
+import { Collapse, Typography, Button, notification, Modal, Empty } from "antd";
 import Axios from "axios";
 import setAuthToken from "../../../helpers/setAuthToken";
 import { BalitaForm } from "./BalitaForm";
 const { Panel } = Collapse;
 
-export const BalitaList = ({ balitaList, onUpdate }) => {
+export const BalitaList = ({ balitaList = [], onUpdate }) => {
   const [visible, setVisible] = React.useState(false);
   const [updatedItem, setUpdatedItem] = React.useState({});
 
@@ -40,9 +40,9 @@ export const BalitaList = ({ balitaList, onUpdate }) => {
 
   return (
     <>
-      <Collapse ghost>
-        {balitaList &&
-          balitaList.map((balita, i) => {
+      {balitaList.length > 0 ? (
+        <Collapse ghost>
+          {balitaList.map((balita, i) => {
             return (
               <Panel header={balita.nama_bayi} key={i}>
                 <Typography>Umur : {balita.umur}</Typography>
@@ -57,7 +57,10 @@ export const BalitaList = ({ balitaList, onUpdate }) => {
               </Panel>
             );
           })}
-      </Collapse>
+        </Collapse>
+      ) : (
+        <Empty />
+      )}
       <Modal
         title="Basic Modal"
         visible={visible}

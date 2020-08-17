@@ -1,11 +1,11 @@
 import React from "react";
-import { Collapse, Typography, Button, notification, Modal } from "antd";
+import { Collapse, Typography, Button, notification, Modal, Empty } from "antd";
 import Axios from "axios";
 import setAuthToken from "../../../helpers/setAuthToken";
 import { TimbangForm } from "./TimbangForm";
 const { Panel } = Collapse;
 
-export const TimbangList = ({ TimbangList, onUpdate }) => {
+export const TimbangList = ({ timbangList = [], onUpdate }) => {
   const [visible, setVisible] = React.useState(false);
   const [updatedItem, setUpdatedItem] = React.useState({});
 
@@ -40,12 +40,14 @@ export const TimbangList = ({ TimbangList, onUpdate }) => {
 
   return (
     <>
-      <Collapse ghost>
-        {TimbangList &&
-          TimbangList.map((timbang, i) => {
+      {timbangList.length > 0 ? (
+        <Collapse ghost>
+          {timbangList.map((timbang, i) => {
             return (
               <Panel header={timbang.nama_bayi} key={i}>
-                <Typography>Tanggal Timbang : {timbang.tanggal_timbang}</Typography>
+                <Typography>
+                  Tanggal Timbang : {timbang.tanggal_timbang}
+                </Typography>
                 <Typography>Berat :{timbang.berat}</Typography>
                 <Button onClick={() => handleDelete(timbang)} type="dashed">
                   Delete
@@ -56,7 +58,10 @@ export const TimbangList = ({ TimbangList, onUpdate }) => {
               </Panel>
             );
           })}
-      </Collapse>
+        </Collapse>
+      ) : (
+        <Empty />
+      )}
       <Modal
         title="Basic Modal"
         visible={visible}

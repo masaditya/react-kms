@@ -1,5 +1,12 @@
 import React from "react";
-import { Form, Input, Button, Radio, InputNumber, notification } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  notification,
+  DatePicker,
+  InputNumber,
+} from "antd";
 import setAuthToken from "../../../helpers/setAuthToken";
 import Axios from "axios";
 
@@ -9,11 +16,12 @@ const layout = {
 };
 
 export const TimbangForm = ({ updateValue = undefined }) => {
+  const [dateValue, setDateValue] = React.useState("");
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-  const handleSubmitForm = React.useCallback(async (values) => {
+  const handleSubmitForm = async (values) => {
     if (updateValue) {
       const response = await Axios.put(
         process.env.REACT_APP_SERVER + "/timbang/" + updateValue.id_timbang,
@@ -31,7 +39,7 @@ export const TimbangForm = ({ updateValue = undefined }) => {
     } else {
       const response = await Axios.post(
         process.env.REACT_APP_SERVER + "/timbang",
-        values,
+        { ...values, tanggal_timbang: dateValue },
         setAuthToken(localStorage.getItem("token"))
       );
       if (response.data) {
@@ -43,8 +51,7 @@ export const TimbangForm = ({ updateValue = undefined }) => {
         notification.error({ message: "Added New Data Failed" });
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  };
 
   return (
     <Form
@@ -61,20 +68,19 @@ export const TimbangForm = ({ updateValue = undefined }) => {
         <Input />
       </Form.Item>
       <Form.Item
-        initialValue={updateValue ? updateValue.tanggal_timbang : ""}
         label="Tanggal Timbang"
         name="tanggal_timbang"
         rules={[{ required: true, message: "Please input the date!" }]}
       >
-        <Input />
+        <DatePicker onChange={(dv, ds) => setDateValue(ds)} />
       </Form.Item>
       <Form.Item
-        initialValue={updateValue ? updateValue.berat : ""}
+        initialValue={updateValue ? updateValue.berat : 0}
         label="Berat"
         name="berat"
         rules={[{ required: true, message: "Please input the weight!" }]}
       >
-        <Input />
+        <InputNumber />
       </Form.Item>
 
       <Button type="primary" htmlType="submit">
