@@ -3,7 +3,6 @@ export default async (balitas, action) => {
     case 'ADD_NEW_BALITA':
       return [...balitas, action.payload]
     case 'FETCH_BALITAS':
-      console.log("FETCHED", action)
       return await action.payload
     case 'GET_DATA_BY_ID':
       return action.payload

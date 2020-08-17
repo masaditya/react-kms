@@ -1,10 +1,14 @@
 import React from "react";
-import { Collapse, Typography, Button, notification } from "antd";
+import { Collapse, Typography, Button, notification, Modal } from "antd";
 import Axios from "axios";
 import setAuthToken from "../../../helpers/setAuthToken";
+import { BalitaForm } from "./BalitaForm";
 const { Panel } = Collapse;
 
 export const BalitaList = ({ balitaList, onUpdate }) => {
+  const [visible, setVisible] = React.useState(false);
+  const [updatedItem, setUpdatedItem] = React.useState({});
+
   const handleDelete = async (values) => {
     console.log(values);
     const response = await Axios.delete(
@@ -23,6 +27,17 @@ export const BalitaList = ({ balitaList, onUpdate }) => {
     }
   };
 
+  const handleUpdate = (value) => {
+    console.log(value);
+    setUpdatedItem(value);
+    setVisible(!visible);
+  };
+
+  const handleCancelUpdate = () => {
+    setVisible(!visible);
+    setUpdatedItem();
+  };
+
   return (
     <>
       <Collapse ghost>
@@ -36,13 +51,21 @@ export const BalitaList = ({ balitaList, onUpdate }) => {
                 <Button onClick={() => handleDelete(balita)} type="dashed">
                   Delete
                 </Button>
-                <Button onClick={onUpdate} type="primary">
+                <Button onClick={() => handleUpdate(balita)} type="primary">
                   Update
                 </Button>
               </Panel>
             );
           })}
       </Collapse>
+      <Modal
+        title="Basic Modal"
+        visible={visible}
+        onCancel={handleCancelUpdate}
+        footer=""
+      >
+        <BalitaForm updateValue={updatedItem} />
+      </Modal>
     </>
   );
 };
