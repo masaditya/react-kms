@@ -10,7 +10,7 @@ export const TimbangList = ({ timbangList = [], onUpdate }) => {
   const [updatedItem, setUpdatedItem] = React.useState({});
 
   const handleDelete = async (values) => {
-    console.log(values);
+    
     const response = await Axios.delete(
       process.env.REACT_APP_SERVER + "/timbang/" + values.id_timbang,
       setAuthToken(localStorage.getItem("token"))
@@ -18,7 +18,6 @@ export const TimbangList = ({ timbangList = [], onUpdate }) => {
     console.log(response.data);
     if (response.data) {
       notification.info({ message: "Delete New Data Success" });
-      console.log(response.data);
       setTimeout(() => {
         window.location.reload();
       }, 1000);
@@ -28,7 +27,6 @@ export const TimbangList = ({ timbangList = [], onUpdate }) => {
   };
 
   const handleUpdate = (value) => {
-    console.log(value);
     setUpdatedItem(value);
     setVisible(!visible);
   };
