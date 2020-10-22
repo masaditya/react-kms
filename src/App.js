@@ -5,6 +5,7 @@ import { Switch, BrowserRouter, Route, Redirect } from "react-router-dom";
 import { LoginPage } from "./pages/Auth/Login/Login";
 import { RegisterPage } from "./pages/Auth/Register/Register";
 import { Main } from "./pages/Main/Main";
+//import { Main } from "./pages/Main/Main";
 
 const App = () => {
   return (
@@ -22,3 +23,4 @@ const App = () => {
 };
 
 export default App;
+//cek ombak
