@@ -4,7 +4,7 @@
 
 Nama Kelompok : Rafqi Agatha, Aditya Eka
 
-## :book: Cara menjalankan project ini
+## :book: Open BO dulu kak!
 
 clone repo ini
 
