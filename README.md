@@ -29,3 +29,4 @@ Lalu run server dengan command
 ```bash
 npm start
 ```
+Nama saya ICHSAN KAAKA
