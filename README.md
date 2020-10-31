@@ -30,3 +30,4 @@ Lalu run server dengan command
 npm start
 ```
 Nama saya ICHSAN KAAKA
+Terima aku kaka
